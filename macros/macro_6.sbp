@@ -1,0 +1,10 @@
+'!FABMO!name:Start Router
+'!FABMO!description:Turn on the router
+' Title: Start the router
+' Description: 
+'  Turn on the relay that provides power to the router.
+' Platform: Handibot
+' Author: Ted Hall
+
+' Turn on the router
+SO,1,1

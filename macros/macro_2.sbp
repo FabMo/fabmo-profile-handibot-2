@@ -1,0 +1,90 @@
+'!FABMO!name:Z-Zero
+'!FABMO!description:Defines Z-Zero position
+' Title: Reset Cutter Length (sometimes called Z-Zero) 
+' Description: 
+'   Determines the cutter length offset for automated setting of Z-Axis Zero in Macro #3
+'   And it simultaneously sets the zero location for the Z axis
+' Platform: Handibot
+' Author: Ted Hall, Ryan Sturmer
+' History:
+'   2016/03/01 - Initial version (th)
+'   2017/07/10 - Rewritten for new probe commands (rs)
+
+' --- Settings ---
+SU, 0 						' This file is in inches
+$zero_plate_adder := .75 	' Distance from the top of the zero plate to the work surface
+&TargetX = 6				' X location of the zeroing target
+&TargetY = 0				' Y location of the zeroing target
+&ZBackoff = 0.125			' Amount to back off the target between probing operations
+&ZFinal = 0.25				' Height above target to park the Z when finished
+&ProbeSearchDistance = 5.0  ' Total search distance (Z-Travel) of the machine
+&EPS = 0.001				' Epsilon for numerical comparisons
+
+' --- Main Program ---
+' Do an XYZ Zero so all axes are in a known location.
+' This ensures both that z-offset calculations and XY position above the target are correct
+C3         
+
+' Move to zeoring target location
+M2, &TargetX, &TargetY
+
+PAUSE "Attach Aligator Clip to Cutter Shank and Swing-Out Target."
+
+' Make sure we're not accidentally in electrical contact with target 
+IF %(51) = 1 THEN GOTO FailInit
+
+' Probe fast      
+&ProbeEndpoint = %(3)-&ProbeSearchDistance
+&ProbeSpeed = 0.5
+&ProbeInput = 1
+GOSUB ProbeZ
+
+GOSUB BackOff
+
+' Probe again, slowly
+&ProbeEndpoint = %(3)-(&ZBackoff*2.0)
+&ProbeSpeed = 0.1
+&ProbeInput = 1
+GOSUB ProbeZ
+GOSUB BackOff
+
+'Set Location and Zero (accounting for pullup)
+$current_cutter_Zoffset = (-1 * %(3)) + $zero_plate_adder + &ZBackoff
+&new_base_Z_loc = &ZBackoff + $zero_plate_adder
+VA,,,&new_base_Z_loc
+
+MZ, $zero_plate_adder + &ZFinal        
+
+PAUSE "Measurement complete. Remove alligator clip and store target. (Continue when finished)"
+
+END
+
+' --- Subroutines ---
+
+ProbeZ:
+	PZ,&ProbeEndpoint,&ProbeSpeed,&ProbeInput
+    GOSUB CheckZ
+    RETURN
+
+' Checks the current value of the z axis against &ProbeEndpoint
+' If they are the same, that means that the most recent probing operation went all
+' the way to the end without ever hitting the target.  This is an error, and the program fails.
+CheckZ:
+	&err = %(3)-&ProbeEndpoint
+    IF &err > &EPS THEN GOTO CheckZDone
+    IF &err < (-1.0*&EPS) THEN GOTO CheckZDone
+    GOTO FailProbe
+    CheckZDone:
+    	RETURN
+        
+BackOff:
+	JZ %(3)+&ZBackoff
+    RETURN
+    
+
+FailProbe:
+    END "Did not find the target!  Check your connections."
+
+FailInit:
+	END "Target seems already in contact!  Check your connections."
+   

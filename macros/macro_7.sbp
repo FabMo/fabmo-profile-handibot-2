@@ -1,0 +1,10 @@
+'!FABMO!name:Stop Router
+'!FABMO!description:Turn off the router
+' Title: Stop the router
+' Description: 
+'  Turn off the relay that provides power to the router.
+' Platform: Handibot
+' Author: Ted Hall
+
+' Turn off the router
+SO,1,0

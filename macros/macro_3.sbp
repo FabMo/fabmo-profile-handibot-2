@@ -1,0 +1,94 @@
+'!FABMO!name:Set Zero Locations
+'!FABMO!description:Automatically Set Axis Zero for XYZ
+' Title: Find Zero Locations
+' Description: 
+'   Determines the zero locations of the X,Y and Z axes.
+' Platform: Handibot
+' Author: Ted Hall, Ryan Sturmer
+' History:
+'   2016/03/01 - Initial version (th)
+'   2016/11/20 - Switched to FRONT for simpler touch. Hard stop at rear still provides more accuracy. (th)
+'   2017/08/2 - Updated for new fabmo features (rs)
+
+SU,0                        ' Units will auto-revert back to current units at end of file
+
+'--- Settings ---
+$current_cutter_Zoffset := .25
+$x_backoff := .075
+$y_backoff := .075
+MS, 4, 4					' Speeds will auto-revert back to current values at end of file
+JS, 5, 5
+
+' --- Main Program ---
+GOSUB HomeZ
+GOSUB HomeX
+GOSUB HomeY
+
+END
+
+' --- Subroutines ---
+HomeZ:
+    ' Set approach accelerations 
+    VR,250, 250
+    ' Drive into top hard stop
+    MZ, %(3)+5.0
+    PAUSE .25
+    ' Retreat
+    MZ, %(3)-0.5				' Position for final approach
+    ' Set higher accel to limit bounce
+    VR,,1000
+    ' Drive into top hard stop (again) a Jog Speed (reduces power)
+    JZ,%(3)+1.0
+    ' Set Z table base coordinates
+    &z_dist = 0.0 + $current_cutter_Zoffset      ' This persistent var = distance for Z move from tip at 0 til top stop
+    VA,,, &z_dist,,,,,, &z_dist                  ' Set Z Table Base Coordinate (offset to Zero) 
+    ' Set accel back to reasonable values
+    VR,,50
+    ' Move to safe park location
+    &tempPark = $current_cutter_Zoffset - 0.25    ' about as high as you can safely be
+    MZ, &tempPark
+    RETURN
+  
+HomeX:
+    ' Set approach accelerations 
+    VR,250, 250
+	' Drive into right-side hard stop
+    MX, %(1)+7.0
+    PAUSE .25
+    ' Retreat
+    MX, %(1)-1.0
+    ' Set higher accel to limit bounce
+    VR, 1000           
+	' Drive into right-side hard stop (again)    ' 
+    JX, %(1)+2.0
+    PAUSE .25
+    ' Set X table base offsets
+	&temp_loc = 6.0 + $x_backoff
+    VA, &temp_loc,,,,,, &temp_loc 
+    ' Set accel back to reasonable values
+    VR, 50
+    ' Move to the zero location in the X
+    MX, 0.0
+	RETURN
+    
+HomeY:
+    ' Set approach accelerations 
+    VR,250, 250
+	' Drive into the front hard stop
+	MY, %(2)-9.0
+	PAUSE .25
+    ' Retreat
+    MY, %(2)+1.0
+    ' Set higheraccel to limit bounce
+    VR, 1000
+	' Drive into the front hard stop    
+    JY, %(2)-2.0
+	PAUSE .25
+    ' Set Y Table base coordinate
+	&temp_loc = 0 - $y_backoff
+    VA, ,&temp_loc ,,,,,, &temp_loc' Set Y Table Base Coordinate (offset to Zero) 
+    ' Setaccel back to reasonable values
+	VR, 50			
+    ' Move to the zero location in the Y	 
+    MY, 0.0
+	RETURN
