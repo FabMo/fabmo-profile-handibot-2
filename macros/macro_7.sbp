@@ -1,10 +1,7 @@
-'!FABMO!name:Stop Router
-'!FABMO!description:Turn off the router
-' Title: Stop the router
-' Description: 
-'  Turn off the relay that provides power to the router.
-' Platform: Handibot
-' Author: Ted Hall
+'!FABMO!name: Spindle Off
+'!FABMO!description: Turns spindle OFF, SBP convention for managing tools
+' Name: Spindle Off
+' Description: Turns spindle OFF, SBP convention for managing tools [C7]
 
-' Turn off the router
-SO,1,0
+SO, 1, 0            ' Make OUTPUT #1 INACTIVE (low)
+

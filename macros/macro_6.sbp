@@ -1,10 +1,8 @@
-'!FABMO!name:Start Router
-'!FABMO!description:Turn on the router
-' Title: Start the router
-' Description: 
-'  Turn on the relay that provides power to the router.
-' Platform: Handibot
-' Author: Ted Hall
+'!FABMO!name: Spindle On
+'!FABMO!description: Turns spindle ON, SBP convention for managing tools
+' Name: Spindle On
+' Description: Turns spindle ON, SBP convention for managing tools [C6]
 
-' Turn on the router
-SO,1,1
+SO, 1, 1            ' Make OUTPUT #1 ACTIVE (high)
+PAUSE .5            ' ... optional pause for spinup, now automatic in FabMo
+
