@@ -7,7 +7,7 @@
 ' History:
 '   2017/09/13 - refactored (th)
 
-$current_tool := 0        ' Initializes permanent tool variable if not already set
+$current_tool := 0        ' Weakly initializes permanent tool variable if not already set
                           ' &Tool will be passed in part file if appropriate post processor used
 
 ' --- Main Program ---

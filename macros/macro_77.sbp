@@ -17,11 +17,11 @@ $y_backoff := .075
 $z_backoff := .075
 $ZZeroInput := 1              ' Later also using system variable %(51) to read input; ... a temporary kludge
 
-&ZZeroSearchDistance := -4.0  ' Weak variable assignments if not perviously defined
-&ZZeroSearchSpeedSlow := 0.1
-&ZZeroSearchSpeedFast := 0.5
-&ZZeroBackoffInitial := 0.2
-&ZZeroBackoffFinal := 0.5
+&ZZeroSearchDistance = -4.0 
+&ZZeroSearchSpeedSlow = 0.1
+&ZZeroSearchSpeedFast = 0.5
+&ZZeroBackoffInitial = 0.2
+&ZZeroBackoffFinal = 0.5
 
 MS, 4, 4					  ' Speeds will auto-revert back to current values at end of file
 JS, 5, 5
