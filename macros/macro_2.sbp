@@ -1,9 +1,8 @@
 '!FABMO!name: Z-Zero
-'!FABMO!description: Set Z-Zero Location based on Cutter Offset
+'!FABMO!description: Set Z-Zero with Zeroing Plate; Use after installing new cutter
 ' Name: Z-Zero
 ' Description: 
-'   Define the Zero Position for Z and set Cutter Offset [C2]
-'   Use after installing a new cutter in the router
+'   Set Z-Zero with Zeroing Plate; Use after installing new cutter [C2]
 ' Platform: Handibot2
 ' Author: Ted Hall, Ryan Sturmer
 ' History:
@@ -26,8 +25,6 @@ $ZZeroPlateThickness := 0.75  ' 0.75" for swing-out plate; 0.57" for pressure pl
 &ZZeroSearchDistance = -4.0 
 &ZZeroSearchSpeedSlow = 0.1
 &ZZeroSearchSpeedFast = 0.5
-&ZZeroBackoffInitial = 0.2
-&ZZeroBackoffFinal = 0.5
 
 MS, 4, 4					  ' Speeds will auto-revert back to current values at end of file
 JS, 5, 5
@@ -46,13 +43,13 @@ find_z_zero:
    &zpos = %(3)
    PZ, &zpos + &ZZeroSearchDistance, &ZZeroSearchSpeedFast, $ZZeroInput
    ZZ
-   JZ, &ZZeroBackoffInitial
+   JZ, $z_backoff
    ZZ
-   &reapproach = -2 * &ZZeroBackoffInitial
+   &reapproach = -2 * $z_backoff
    PZ, &reapproach, &ZZeroSearchSpeedSlow, $ZZeroInput
    ZZ
-   JZ, &ZZeroBackoffFinal
-   VA,,, &ZZeroBackoffFinal + $ZZeroPlateThickness
+   JZ, $z_backoff
+   VA,,, $z_backoff + $ZZeroPlateThickness
   ' Read in current System Variables for current Z and Z-tablebase-offset 
 	 &tempTB_Zoffset = %(8) 
   ' Reset current_cutter and Set Table Base Coordinates and Location to 0 for Z

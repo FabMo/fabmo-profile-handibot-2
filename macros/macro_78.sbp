@@ -3,7 +3,6 @@
 ' Name: Set Z-Zero to Current Offset
 ' Description: 
 '   Installs Current Value of Z offset to permanent offset for future automatic Zeroing [C78]
-' Platform: Handibot
 ' Author: Ted Hall, Ryan Sturmer
 ' History:
 '   2/2/17, 3/16/17, 9/13/17 th
