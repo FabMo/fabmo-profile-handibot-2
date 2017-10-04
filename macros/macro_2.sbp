@@ -37,7 +37,6 @@ END
 
 ' --- Subroutines ---
 find_z_zero:    
-   GOSUB home_z        ' Need to make sure we also have Z 0 at top, now we're all set
    M2, 6, 0            ' Go to plate location
    PAUSE "Attach Aligator Clip to Cutter Shank and Swing-Out Target. -Resume- when Ready"
    &zpos = %(3)
@@ -58,6 +57,7 @@ find_z_zero:
    RETURN
 
 re_home:
+   GOSUB home_z        ' Need to make sure we also have Z 0 at top, now we're all set
    GOSUB home_x    
    GOSUB home_y
    RETURN
