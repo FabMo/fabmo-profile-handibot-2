@@ -3,6 +3,7 @@
 ' Name: Set Z-Zero to Current Offset
 ' Description: 
 '   Installs Current Value of Z offset to permanent offset for future automatic Zeroing [C78]
+' Platform: Handibot
 ' Author: Ted Hall, Ryan Sturmer
 ' History:
 '   2/2/17, 3/16/17, 9/13/17 th
@@ -10,6 +11,9 @@
 SU, 0                        ' Set to Inches; Units will auto-revert to current starting units at end of file
 
 ' --- Main Program ---
+           MX, %(1)          ' Temporary Kludge to make sure Authorize Button not held too long
+           PAUSE 2
+           MX, %(1)
    
 	PAUSE "Before using this routine you should have run Set XYZ Home"
 

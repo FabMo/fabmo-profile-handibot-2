@@ -17,11 +17,11 @@ $y_backoff := .075
 $z_backoff := .075
 $ZZeroInput := 1              ' Later also using system variable %(51) to read input; ... a temporary kludge
 
-&ZZeroSearchDistance = -4.0 
-&ZZeroSearchSpeedSlow = 0.1
-&ZZeroSearchSpeedFast = 0.5
-&ZZeroBackoffInitial = 0.2
-&ZZeroBackoffFinal = 0.5
+&ZZeroSearchDistance := -4.0  ' Weak variable assignments if not perviously defined
+&ZZeroSearchSpeedSlow := 0.1
+&ZZeroSearchSpeedFast := 0.5
+&ZZeroBackoffInitial := 0.2
+&ZZeroBackoffFinal := 0.5
 
 MS, 4, 4					  ' Speeds will auto-revert back to current values at end of file
 JS, 5, 5
@@ -35,16 +35,13 @@ END
 ' --- Subroutines ---
 prelims:
 'Before doing this adjustment, you need to have run Macro#3 (or Macro#2 if this is a new cutter). 
-	PAUSE "You need to have run Macro#3 (or Macro#2 if this is a new cutter). If not, QUIT to do that." 
-    PAUSE 1
-	PAUSE "Then you need to have carefully moved the cutter tip exactly to the surface. If not, QUIT to do that."
-	ZZ
+    GOSUB home_z        ' Need to make sure we also have Z 0 at top, now we're all set
+	PAUSE "You need to have MANUALLY ZEROED the CUTTER and RUN Macro#78 before using this macro to adjust plate thickness/height. If not, QUIT to do that first."
     &tempTB_Zoffset = %(8)  ' Read in current System Variables for current Z and Z-tablebase-offset
     $current_cutter_Zoffset = &tempTB_Zoffset * -1
     RETURN
 		
 find_plate:    
-   GOSUB home_z        ' Need to make sure we also have Z 0 at top, now we're all set
    M2, 6, 0            ' Go to plate location for Handibot (modify for other tools)
    PAUSE "Attach Aligator Clip to Cutter Shank and Place Plate. -Resume- when Ready"
    &zpos = %(3)
