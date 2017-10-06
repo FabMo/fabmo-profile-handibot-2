@@ -46,17 +46,12 @@ find_plate:
    PAUSE "Attach Aligator Clip to Cutter Shank and Place Plate. -Resume- when Ready"
    &zpos = %(3)
    PZ, &zpos + &ZZeroSearchDistance, &ZZeroSearchSpeedFast, $ZZeroInput
-   ZZ
-   JZ, &ZZeroBackoffInitial
-   ZZ
-   &reapproach = -2 * &ZZeroBackoffInitial
+   JZ, %(3) + &ZZeroBackoffInitial
+   &reapproach = %(3) -2
    PZ, &reapproach, &ZZeroSearchSpeedSlow, $ZZeroInput
-   ZZ
-   $ZZeroPlateThickness = (&tempTB_Zoffset - %(8)) * -1
-   JZ, &ZZeroBackoffFinal
-   VA,,, &ZZeroBackoffFinal + $ZZeroPlateThickness
+   $ZZeroPlateThickness = %(3)
+   JZ, %(3) + &ZZeroBackoffFinal
    PAUSE "Re-Measurement Complete (check Fire-Up! for thickness). Make sure to remove Z-Zero Plate and Clip!"
-   ' Nice to sometime display the altered length ... make an APP?
    RETURN
 
 home_z:
@@ -70,7 +65,7 @@ home_z:
     &temp_loc = 0 + $z_backoff                 ' Set Z User Location and Table Base offsets (to zero)
     VA,,, &temp_loc,,,,,, &temp_loc  
     VR,,50                                     ' Set accel back to reasonable values
-    MZ, 0                                      ' ... about as high as you can safely be
+    VA,,, $current_cutter_Zoffset
     RETURN
 
 check_input:
