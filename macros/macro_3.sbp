@@ -53,7 +53,7 @@ offset_z_cutter:
     RETURN
   
 home_x:
-    VR ,250, 250                               ' Set approach accelerations 
+    VR, 250, 250                               ' Set approach accelerations 
 	MX, %(1) + 7.0                             ' Drive into right-side hard stop
     PAUSE .25
     MX, %(1) - 1.0                             ' Retreat
