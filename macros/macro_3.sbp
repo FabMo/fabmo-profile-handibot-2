@@ -75,7 +75,7 @@ home_y:
     JY, %(2)-2.0                               ' Drive into the front hard stop 
 	PAUSE .25
 	&temp_loc = 0 - $y_backoff 
-    VA, , &temp_loc ,,,,,, &temp_loc           ' Set Y Table Base offsets            
+    VA, , &temp_loc,,,,,, &temp_loc           ' Set Y Table Base offsets            
 	VR, 50		                               ' Set accel back to reasonable values	
     MY, 0.0                                    ' Move to the zero location in the Y	
 	RETURN
