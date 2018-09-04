@@ -5,6 +5,8 @@
     "auth_timeout": 30,
     "auth_required": true,
     "auth_input": 2,
+    "interlock_required" : true,
+    "interlock_input" : 3,
     "ap_input": 2,
     "ap_time": 8,
     "default_app": "home",
