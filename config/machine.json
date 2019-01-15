@@ -9,7 +9,7 @@
     "interlock_input" : 3,
     "ap_input": 2,
     "ap_time": 8,
-    "default_app": "home",
+    "default_app": "Handi-CNC",
     "envelope": {
         "xmin": 0,
         "xmax": 6,
