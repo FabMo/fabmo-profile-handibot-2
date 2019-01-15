@@ -9,7 +9,7 @@
     "interlock_input" : 3,
     "ap_input": 2,
     "ap_time": 8,
-    "default_app": "Handi-CNC",
+    "default_app": "fabmo-sb4",
     "envelope": {
         "xmin": 0,
         "xmax": 6,
