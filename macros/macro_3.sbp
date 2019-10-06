@@ -10,14 +10,15 @@
 '   2016/11/20 - Switched to FRONT for simpler touch. Hard stop at rear still provides more accuracy. (th)
 '   2017/08/2 - Updated for new fabmo features (rs)
 '   2017/08/26 - Refactored (th)
+'   2019/10/06 - Re-written to avoid location variables [%()] (th)
 
 SU,0                         ' Set to Inches; Units will auto-revert to current starting units at end of file
 
 '--- Settings ---            ' Initializes permanent variables if not already set
-$current_cutter_Zoffset := .25
-$x_backoff := .075
-$y_backoff := .075
-$z_backoff := .075
+$current_cutter_Zoffset = .25
+$x_backoff = .075
+$y_backoff = .075
+$z_backoff = .075
 
 MS, 4, 4					 ' Speeds will auto-revert back to current values at end of file
 JS, 5, 5
@@ -33,16 +34,17 @@ END
 ' --- Subroutines ---
 home_z:
     VR, 250, 250                               ' Set approach accelerations
-	MZ, %(3) + 5.0                             ' Drive into top hard stop 
-    PAUSE .25
-    MZ, %(3) - 0.5				               ' Retreat for final approach
+	ZZ
+    MZ, 5.0                                    ' Drive into top hard stop 
+    PAUSE .25      
+    MZ, 4.5				                       ' Retreat for final approach
     VR,,1000                                   ' Set higher accel to limit bounce
     JZ, %(3) + 1.0                             ' Hit hard stop (again); at Jog Speed (reduces power)
     PAUSE .25
     &temp_loc = 0 + $z_backoff                 ' Set Z User Location and Table Base offsets (to zero)
     VA,,, &temp_loc,,,,,, &temp_loc  
     VR,,50                                     ' Set accel back to reasonable values
-    MZ, 0                                      ' ... about as high as you can safely be
+    MZ, 0.0                                      ' ... about as high as you can safely be
     RETURN
 
 offset_z_cutter:
@@ -54,11 +56,12 @@ offset_z_cutter:
   
 home_x:
     VR, 250, 250                               ' Set approach accelerations 
-	MX, %(1) + 7.0                             ' Drive into right-side hard stop
+	ZX
+    MX, 7.0   			                       ' Drive into right-side hard stop
     PAUSE .25
-    MX, %(1) - 1.0                             ' Retreat
+    MX, 6.0                                    ' Retreat
     VR, 1000                                   ' Set higher accel to limit bounce       
-    JX, %(1) + 2.0                             ' Drive into right-side hard stop (again) 
+    JX, 8.0                                    ' Drive into right-side hard stop (again) 
     PAUSE .25
 	&temp_loc = 6.0 + $x_backoff               
     VA, &temp_loc,,,,,, &temp_loc              ' Set X Table Base offsets
@@ -68,14 +71,15 @@ home_x:
     
 home_y:
     VR, 250, 250                               ' Set approach accelerations 
-	MY, %(2) - 9.0                             ' Drive into the front hard stop
+	ZZ
+    MY, -9.0                                   ' Drive into the front hard stop
 	PAUSE .25  
-    MY, %(2)+1.0                               ' Retreat
+    MY, -8.0                                   ' Retreat
     VR, 1000                                   ' Set higher accel to limit bounce
-    JY, %(2)-2.0                               ' Drive into the front hard stop 
+    JY, -2.0                                   ' Drive into the front hard stop 
 	PAUSE .25
 	&temp_loc = 0 - $y_backoff 
-    VA, , &temp_loc,,,,,, &temp_loc           ' Set Y Table Base offsets            
+    VA, , &temp_loc,,,,,, &temp_loc            ' Set Y Table Base offsets            
 	VR, 50		                               ' Set accel back to reasonable values	
     MY, 0.0                                    ' Move to the zero location in the Y	
 	RETURN

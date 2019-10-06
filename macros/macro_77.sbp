@@ -7,6 +7,7 @@
 ' Author: Ted Hall, Ryan Sturmer
 ' History:
 '   11/11/16, 2/2/17, 3/16/17, 9/25/17 th
+'   10/06/19 - Re-write to remove axis location variables (th)
 
 SU,0                          ' Set to Inches; Units will auto-revert to current starting units at end of file
 
@@ -46,26 +47,29 @@ find_plate:
    PAUSE "Attach Aligator Clip to Cutter Shank and Place Plate. -Resume- when Ready"
    &zpos = %(3)
    PZ, &zpos + &ZZeroSearchDistance, &ZZeroSearchSpeedFast, $ZZeroInput
-   JZ, %(3) + &ZZeroBackoffInitial
-   &reapproach = %(3) -2
+   ZZ
+   JZ, &ZZeroBackoffInitial
+   &reapproach = &ZZeroBackoffInitial - 2
    PZ, &reapproach, &ZZeroSearchSpeedSlow, $ZZeroInput
+   Pause 1
    $ZZeroPlateThickness = %(3)
-   JZ, %(3) + &ZZeroBackoffFinal
+   JZ, $ZZeroPlateThickness + &ZZeroBackoffFinal
    PAUSE "Re-Measurement Complete (check Fire-Up! for thickness). Make sure to remove Z-Zero Plate and Clip!"
    RETURN
 
 home_z:
     VR, 250, 250                               ' Set approach accelerations
-	MZ, %(3) + 5.0                             ' Drive into top hard stop 
-    PAUSE .25
-    MZ, %(3) - 0.5				               ' Retreat for final approach
+	ZZ
+    MZ, 5.0                                    ' Drive into top hard stop 
+    PAUSE .25      
+    MZ, 4.5				                       ' Retreat for final approach
     VR,,1000                                   ' Set higher accel to limit bounce
     JZ, %(3) + 1.0                             ' Hit hard stop (again); at Jog Speed (reduces power)
     PAUSE .25
     &temp_loc = 0 + $z_backoff                 ' Set Z User Location and Table Base offsets (to zero)
     VA,,, &temp_loc,,,,,, &temp_loc  
     VR,,50                                     ' Set accel back to reasonable values
-    VA,,, $current_cutter_Zoffset
+    MZ, 0.0                                      ' ... about as high as you can safely be
     RETURN
 
 check_input:
