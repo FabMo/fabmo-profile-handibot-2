@@ -71,15 +71,16 @@ home_x:
     
 home_y:
     VR, 250, 250                               ' Set approach accelerations 
-	ZZ
+	ZY
     MY, -9.0                                   ' Drive into the front hard stop
 	PAUSE .25  
     MY, -8.0                                   ' Retreat
     VR, 1000                                   ' Set higher accel to limit bounce
-    JY, -2.0                                   ' Drive into the front hard stop 
+    JY, -10.0                                   ' Drive into the front hard stop 
 	PAUSE .25
 	&temp_loc = 0 - $y_backoff 
     VA, , &temp_loc,,,,,, &temp_loc            ' Set Y Table Base offsets            
 	VR, 50		                               ' Set accel back to reasonable values	
     MY, 0.0                                    ' Move to the zero location in the Y	
+    PAUSE 1
 	RETURN
