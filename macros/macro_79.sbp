@@ -5,17 +5,19 @@
 ' Platform: Handibot2, Handibot1
 ' Author: Ted Hall, Ryan Sturmer
 ' History:
-'  2/2/17, 3/16/17 th
+'  2/2/17, 3/16/17, 12/12/18 th
 
 SU,0                          ' Set to Inches; Units will auto-revert to current starting units at end of file
 
+'--- Main ---
+IF %(25) = 0 THEN GOTO Inch
+'else
+GOTO Metric
+END
 
-' Best Practice is to leave these values as record of default settings,
-' ... and to modify to your preference using the Fire-Up! App
-
-'--- Settings ---
+'--- Settings --- Initializing permanent variables; ##:=## if not already set
 Inch:
-	$x_park_in := 3           ' Initializes if not already set
+	$x_park_in := 3           
 	$y_park_in := 7
 	$z_park_in := 1.5
 	GOTO Move_to_Position_INCH
@@ -25,6 +27,7 @@ Metric:
 	$z_park_mm := 40
 	GOTO Move_to_Position_MM
 
+'--- Subroutines ---
 Move_to_Position_INCH:
   JZ, $z_park_in
   J2, $x_park_in, $y_park_in
