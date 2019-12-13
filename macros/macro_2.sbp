@@ -45,7 +45,7 @@ find_z_zero:
    ZZ
    JZ, $z_backoff
    ZZ
-   &reapproach = -2 * $z_backoff
+   &reapproach = -2 * $z_backoff   
    PZ, &reapproach, &ZZeroSearchSpeedSlow, $ZZeroInput
    ZZ
    JZ, $z_backoff
