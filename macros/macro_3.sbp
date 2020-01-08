@@ -11,11 +11,12 @@
 '   2017/08/2 - Updated for new fabmo features (rs)
 '   2017/08/26 - Refactored (th)
 '   2019/10/06 - Re-written to avoid location variables [%()] (th)
+'   2020/01/08 - Fixed := for current_cutter_Zoffset
 
 SU,0                         ' Set to Inches; Units will auto-revert to current starting units at end of file
 
 '--- Settings ---            ' Initializes permanent variables if not already set
-$current_cutter_Zoffset = .25
+$current_cutter_Zoffset := .25
 $x_backoff = .075
 $y_backoff = .075
 $z_backoff = .075
