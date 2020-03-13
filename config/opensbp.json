@@ -18,7 +18,7 @@
         "home_position_x": 0.05,
         "home_position_y": 0.05,
         "xy_search_speed": 2,
-        "ZZeroPlateThickness": 0.118,
+        "ZZeroPlateThickness": 0.8,
         "z_search_speed": 0.5,
         "tool_change_x": 0,
         "tool_change_y": 0,
