@@ -1,85 +1,21 @@
 {
-    "units": "in",
-    "movexy_speed": 1,
-    "movez_speed": 0.5,
+    "units":"in",
+    "movexy_speed": 3,
+    "movez_speed": 1,
     "movea_speed": 1,
     "moveb_speed": 1,
     "movec_speed": 1,
-    "jogxy_speed": 4,
-    "jogz_speed": 2,
-    "joga_speed": 250,
-    "jogb_speed": 250,
-    "jogc_speed": 250,
+    "jogxy_speed" : 4,
+    "jogz_speed" : 3,
+    "joga_speed" : 250,
+    "jogb_speed" : 250,
+    "jogc_speed" : 250,
     "cutterDia": 0.25,
     "pocketOverlap": 50,
-    "safeZpullUp": 0.25,
-    "safeApullUp": 0.25,
-    "variables": {
-        "home_position_x": 0.05,
-        "home_position_y": 0.05,
-        "xy_search_speed": 2,
-        "ZZeroPlateThickness": 0.8,
-        "z_search_speed": 0.5,
-        "tool_change_x": 0,
-        "tool_change_y": 0,
-        "tool_change_safe_z": 1,
-        "tool_change_z": 2,
-        "x_backoff": 0.05,
-        "y_backoff": 0.05,
-        "z_backoff": 0.05,
-        "current_cutter_Zoffset": 0.25,
-        "ZZeroInput": 1,
-        "safeZ_pullup": 0.25,
-        "mtc_mode": "MTC",
-        "x_park_mm": 75,
-        "y_park_mm": 175,
-        "z_park_mm": 25,
-        "x_park_in": 3,
-        "y_park_in": 7,
-        "z_park_in": 1,
-        "current_tool": 1,
-        "mtc_z_mode": "FIXED",
-        "mtc_xy_mode": "FIXED",
-        "mtc_zero_mode": "MACRO",
-        "mtc_skip_first_tool_change": 0
-    },
-    "transforms": {
-        "rotate": {
-            "apply": false,
-            "angle": 0,
-            "x": 0,
-            "y": 0
-        },
-        "shearx": {
-            "apply": false,
-            "angle": 0
-        },
-        "sheary": {
-            "apply": false,
-            "angle": 0
-        },
-        "scale": {
-            "apply": false,
-            "scalex": 1,
-            "scaley": 1,
-            "scalez": 1,
-            "x": 0,
-            "y": 0,
-            "z": 0
-        },
-        "move": {
-            "apply": false,
-            "x": 0,
-            "y": 0,
-            "z": 0
-        },
-        "interpolate": {
-            "apply": false
-        },
-        "level": {
-            "apply": false,
-            "ptDataFile": "C:/SbParts/PtData.json"
-        }
+    "safeZpullUp": 0.5,
+    "safeApullUp": 0.5,
+    "variables" : {
+        "example_variable": 999
     },
     "cRes": 0.01,
     "GblPropX": 1,
