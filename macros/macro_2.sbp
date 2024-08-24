@@ -54,7 +54,7 @@ find_z_zero:
   ' Read in current System Variables for current Z and Z-tablebase-offset 
 	 &tempTB_Zoffset = %(8) 
   ' Reset current_cutter and Set Table Base Coordinates and Location to 0 for Z
-     $current_cutter_Zoffset = &tempTB_Zoffset * -1
+     $sb_current_cutter_Zoffset = &tempTB_Zoffset * -1
    PAUSE "Z-ZEROED and Cutter Length Saved. Make sure to remove Z-Zero Plate and Clip!"
    RETURN
 
