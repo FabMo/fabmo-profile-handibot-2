@@ -4,7 +4,7 @@
     "softlimits_on" : false,
     "di1_def": "none",
     "di2_def": "none",
-    "di3_def": "limit",
+    "di3_def": "none",
     "di4_def": "stop",
     "di5_def": "none",
     "di6_def": "none",
@@ -13,7 +13,7 @@
     "di9_def": "none",
     "di10_def": "none",
     "di11_def": "none",
-    "di12_def": "interlock",
+    "di12_def": "none",
 	"default_app" : "fabmo-sb4",
 	"envelope" : {
 		"xmin" : 0,
